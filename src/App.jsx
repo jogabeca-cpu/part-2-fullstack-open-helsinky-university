@@ -23,12 +23,13 @@ const Content = ({ parts }) => {
   )
 }
 
-// New sub-component to calculate the sum using reduce
+// Sub-component to calculate the sum using reduce as instructed
 const Total = ({ parts }) => {
-  // Using reduce to accumulate the exercises sum
+  // Using reduce with log to see the accumulation step by step
   const totalExercises = parts.reduce((sum, part) => {
+    console.log('what is happening', sum, part)
     return sum + part.exercises
-  }, 0)
+  }, 0) // Important: initial value set to 0 to sum object properties properly
 
   return (
     <p>
