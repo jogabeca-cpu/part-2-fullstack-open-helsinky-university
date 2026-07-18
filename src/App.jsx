@@ -23,12 +23,27 @@ const Content = ({ parts }) => {
   )
 }
 
-// The main Course component required by the exercise
+// New sub-component to calculate the sum using reduce
+const Total = ({ parts }) => {
+  // Using reduce to accumulate the exercises sum
+  const totalExercises = parts.reduce((sum, part) => {
+    return sum + part.exercises
+  }, 0)
+
+  return (
+    <p>
+      <strong>total of {totalExercises} exercises</strong>
+    </p>
+  )
+}
+
+// The main Course component that gathers everything
 const Course = ({ course }) => {
   return (
     <div>
       <Header courseName={course.name} />
       <Content parts={course.parts} />
+      <Total parts={course.parts} />
     </div>
   )
 }
@@ -52,6 +67,11 @@ const App = () => {
         name: 'State of a component',
         exercises: 14,
         id: 3
+      },
+      {
+        name: 'Redux',
+        exercises: 11,
+        id: 4
       }
     ]
   }
