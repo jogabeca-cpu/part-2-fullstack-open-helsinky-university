@@ -1,6 +1,6 @@
-// Sub-component for the main course title
+// Sub-component for course title
 const Header = ({ courseName }) => {
-  return <h1>{courseName}</h1>
+  return <h2>{courseName}</h2>
 }
 
 // Sub-component for a single part row
@@ -12,7 +12,7 @@ const Part = ({ part }) => {
   )
 }
 
-// Sub-component that loops through all parts using .map()
+// Sub-component that loops through parts of a course
 const Content = ({ parts }) => {
   return (
     <div>
@@ -23,13 +23,9 @@ const Content = ({ parts }) => {
   )
 }
 
-// Sub-component to calculate the sum using reduce as instructed
+// Sub-component to calculate total exercises per course
 const Total = ({ parts }) => {
-  // Using reduce with log to see the accumulation step by step
-  const totalExercises = parts.reduce((sum, part) => {
-    console.log('what is happening', sum, part)
-    return sum + part.exercises
-  }, 0) // Important: initial value set to 0 to sum object properties properly
+  const totalExercises = parts.reduce((sum, part) => sum + part.exercises, 0)
 
   return (
     <p>
@@ -38,7 +34,7 @@ const Total = ({ parts }) => {
   )
 }
 
-// The main Course component that gathers everything
+// Component to render individual course content
 const Course = ({ course }) => {
   return (
     <div>
@@ -50,34 +46,60 @@ const Course = ({ course }) => {
 }
 
 const App = () => {
-  const course = {
-    id: 1,
-    name: 'Half Stack application development',
-    parts: [
-      {
-        name: 'Fundamentals of React',
-        exercises: 10,
-        id: 1
-      },
-      {
-        name: 'Using props to pass data',
-        exercises: 7,
-        id: 2
-      },
-      {
-        name: 'State of a component',
-        exercises: 14,
-        id: 3
-      },
-      {
-        name: 'Redux',
-        exercises: 11,
-        id: 4
-      }
-    ]
-  }
+  const courses = [
+    {
+      name: 'Half Stack application development',
+      id: 1,
+      parts: [
+        {
+          name: 'Fundamentals of React',
+          exercises: 10,
+          id: 1
+        },
+        {
+          name: 'Using props to pass data',
+          exercises: 7,
+          id: 2
+        },
+        {
+          name: 'State of a component',
+          exercises: 14,
+          id: 3
+        },
+        {
+          name: 'Redux',
+          exercises: 11,
+          id: 4
+        }
+      ]
+    }, 
+    {
+      name: 'Node.js',
+      id: 2,
+      parts: [
+        {
+          name: 'Routing',
+          exercises: 3,
+          id: 1
+        },
+        {
+          name: 'Middlewares',
+          exercises: 7,
+          id: 2
+        }
+      ]
+    }
+  ]
 
-  return <Course course={course} />
+  return (
+    <div>
+      <h1>Web development curriculum</h1>
+      {/* Map through the array of courses to render each Course component */}
+      {courses.map(course => 
+        <Course key={course.id} course={course} />
+      )}
+    </div>
+  )
 }
 
 export default App
