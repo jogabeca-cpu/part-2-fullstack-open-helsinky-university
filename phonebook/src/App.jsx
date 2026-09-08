@@ -12,7 +12,21 @@ const App = () => {
 
   const addPerson = (event) => {
     event.preventDefault()
-    setPersons(persons.concat({ name: newName }))
+
+    // We check if the name exist in the folder
+    const nameExists = persons.some(person => person.name === newName)
+
+    if (nameExists) {
+      alert(`${newName} is already added to phonebook`)
+      return
+    }
+
+    // if does not exist, add
+    const personObject = {
+      name: newName
+    }
+
+    setPersons(persons.concat(personObject))
     setNewName('')
   }
 
