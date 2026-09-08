@@ -2,18 +2,25 @@ import { useState } from 'react'
 
 const App = () => {
   const [persons, setPersons] = useState([
-    { name: 'Arto Hellas' }
+    { name: 'Arto Hellas', number: '301-5869173' }
   ]) 
   const [newName, setNewName] = useState('')
+  // new state for phone number
+  const [newNumber, setNewNumber] = useState('')
 
   const handleNameChange = (event) => {
     setNewName(event.target.value)
   }
 
+  // handler for number input
+  const handleNumberChange = (event) => {
+    setNewNumber(event.target.value)
+  }
+
   const addPerson = (event) => {
     event.preventDefault()
 
-    // We check if the name exist in the folder
+    // check if person already exists
     const nameExists = persons.some(person => person.name === newName)
 
     if (nameExists) {
@@ -21,13 +28,15 @@ const App = () => {
       return
     }
 
-    // if does not exist, add
+    // create new object with name and number
     const personObject = {
-      name: newName
+      name: newName,
+      number: newNumber
     }
 
     setPersons(persons.concat(personObject))
     setNewName('')
+    setNewNumber('')
   }
 
   return (
@@ -38,13 +47,16 @@ const App = () => {
           name: <input value={newName} onChange={handleNameChange} />
         </div>
         <div>
+          number: <input value={newNumber} onChange={handleNumberChange} />
+        </div>
+        <div>
           <button type="submit">add</button>
         </div>
       </form>
       <h2>Numbers</h2>
       <ul>
         {persons.map(person => 
-          <li key={person.name}>{person.name}</li>
+          <li key={person.name}>{person.name} {person.number}</li>
         )}
       </ul>
     </div>
